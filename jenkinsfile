@@ -9,9 +9,9 @@ pipeline {
                 url: 'https://github.com/Premsagarpc1/node-todo-cicd.git'
             }
         }
-        stage('Build') {
+        stage('Build & Test') {
             steps {
-                echo "bulding the code"
+                echo "bulding the code and testing"
                 sh 'docker build . -t premsagarpc1/node-todo-test:latest'
             }
         }
@@ -22,11 +22,6 @@ pipeline {
                     sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
                     sh 'docker push premsagarpc1/node-todo-test:latest'
                 }
-            }
-        }
-        stage('Test') {
-            steps {
-                echo "testing the build"
             }
         }
         stage('Deploy') {
